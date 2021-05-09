@@ -10,6 +10,11 @@ namespace ExcelParser.Constants
     {
         public const string FileTypes = "CSV|*.csv|Excel Workbook|*.xlsx";
         public const string WorkSheetName = "WorksheetName";
+        public const string OptionType = "radio";
+        public const string OptionRequired = "1";
+        public const string OptionSubtract = "1";
+        public const string Status = "1";
+
 
     }
 }
