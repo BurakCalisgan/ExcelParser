@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -59,16 +62,27 @@ namespace ExcelParser.Model
         public string seo_h3 { get; set; }
         public string image_title { get; set; }
         public string image_alt { get; set; }
+        [Display(Name = "option:name")]
         public string option_name { get; set; }
+        [Display(Name = "option:type")]
         public string option_type { get; set; }
+        [Display(Name = "option:value")]
         public string option_value { get; set; }
+        [Display(Name = "option:required")]
         public string option_required { get; set; }
+        [Display(Name = "option:image")]
         public string option_image { get; set; }
+        [Display(Name = "option:sort_order")]
         public string option_sort_order { get; set; }
+        [Display(Name = "option:quantity")]
         public string option_quantity { get; set; }
+        [Display(Name = "option:subtract")]
         public string option_subtract { get; set; }
+        [Display(Name = "option:price")]
         public string option_price { get; set; }
+        [Display(Name = "option:points")]
         public string option_points { get; set; }
+        [Display(Name = "option:weight")]
         public string option_weight { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using ExcelParser.Model;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq;
 using System.Reflection;
@@ -51,7 +52,18 @@ namespace ExcelParser.Utility
             foreach (PropertyInfo prop in Props)
             {
                 //Setting column names as Property names
-                dataTable.Columns.Add(prop.Name);
+                var attrs = prop.GetCustomAttributes(typeof(DisplayAttribute), true);
+                string columnName;
+                if (attrs.Any())
+                {
+                    columnName = ((DisplayAttribute)attrs[0]).Name;
+                }   
+                else
+                {
+                    columnName = prop.Name;
+                }
+                dataTable.Columns.Add(columnName);
+
             }
             foreach (T item in items)
             {
@@ -92,6 +104,13 @@ namespace ExcelParser.Utility
                 }
             }
             return "";
+        }
+
+        public static T GetAttributeFrom<T>(this object instance, string propertyName) where T : Attribute
+        {
+            var attrType = typeof(T);
+            var property = instance.GetType().GetProperty(propertyName);
+            return (T)property.GetCustomAttributes(attrType, false).First();
         }
 
         /// <summary>
@@ -185,7 +204,7 @@ namespace ExcelParser.Utility
         //    for (int rowNumber = 2; rowNumber < ws.Dimension.End.Row; rowNumber++)
         //    {
         //        var row = ws.Cells[rowNumber, 1, rowNumber, ws.Dimension.End.Column];
-                
+
         //        var newRow = dt.NewRow();
 
         //        for (int i = 0; i < row.Count(); i++)
@@ -203,7 +222,7 @@ namespace ExcelParser.Utility
         //                {
         //                    newRow[columnName] = ((object[,])row.Value)[0, i].ToString();
         //                }
-                        
+
         //            }
 
         //            newRow[OpenCardConstants.option_type] = CommonConstants.OptionType;
@@ -253,6 +272,37 @@ namespace ExcelParser.Utility
         //    }
         //}
 
-       
+
+        ///// <summary>
+        ///// List to DataTable Converter Function
+        ///// </summary>
+        ///// <typeparam name="T"></typeparam>
+        ///// <param name="items"></param>
+        ///// <returns></returns>
+        //public static DataTable ToDataTable<T>(List<T> items)
+        //{
+        //    DataTable dataTable = new DataTable(typeof(T).Name);
+        //    //Get all the properties
+        //    PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+        //    foreach (PropertyInfo prop in Props)
+        //    {
+        //        //Setting column names as Property names
+        //        dataTable.Columns.Add(prop.Name);
+        //    }
+        //    foreach (T item in items)
+        //    {
+        //        var values = new object[Props.Length];
+        //        for (int i = 0; i < Props.Length; i++)
+        //        {
+        //            //inserting property values to datatable rows
+        //            values[i] = Props[i].GetValue(item, null);
+        //        }
+        //        dataTable.Rows.Add(values);
+        //    }
+        //    //put a breakpoint here and check datatable
+        //    return dataTable;
+        //}
+
+
     }
 }
