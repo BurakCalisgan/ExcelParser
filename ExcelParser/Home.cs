@@ -60,8 +60,10 @@ namespace ExcelParser
                 {
                     if (sfd.ShowDialog() == DialogResult.OK)
                     {
-                        var fileInfo = new FileInfo(sfd.FileName);
-                        ExcelPackageUtil.ExportExcel((DataTable)dtgExcelData.DataSource, fileInfo);
+                        //var fileInfo = new FileInfo(sfd.FileName);
+                        //ExcelPackageUtil.ExportExcel((DataTable)dtgExcelData.DataSource, fileInfo);
+                        var dt = (DataTable)dtgExcelData.DataSource;
+                        dt.ToCSV(sfd.FileName);
                         MessageBox.Show("Operation has been succesfully completed.");
                     }
                 }

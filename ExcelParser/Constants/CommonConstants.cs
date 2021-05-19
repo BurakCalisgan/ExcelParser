@@ -8,7 +8,7 @@ namespace ExcelParser.Constants
 {
     public static class CommonConstants
     {
-        public const string FileTypes = "CSV|*.csv|Excel Workbook|*.xlsx";
+        public const string FileTypes = "CSV (Virgülle Ayrılmış) |*.csv| Excel Workbook |*.xlsx";
         public const string WorkSheetName = "WorksheetName";
         public const string OptionType = "radio";
         public const string OptionRequired = "1";
